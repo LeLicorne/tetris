@@ -40,10 +40,10 @@ button:focus-visible {
 }
 
 .tetris-shell {
-  min-height: 100vh;
+  min-height: 100svh;
   display: grid;
   place-items: center;
-  padding: 32px;
+  padding: 20px;
 }
 
 .tetris-layout {
@@ -63,8 +63,8 @@ button:focus-visible {
 
 .game-panel {
   display: grid;
-  gap: 18px;
-  padding: 20px;
+  gap: 14px;
+  padding: 16px;
 }
 
 .game-heading {
@@ -91,7 +91,7 @@ h2 {
 
 h1 {
   color: #ffffff;
-  font-size: 4.6rem;
+  font-size: 3.6rem;
   font-weight: 900;
   letter-spacing: 0;
 }
@@ -111,7 +111,9 @@ h2 {
 
 .board-wrap {
   position: relative;
-  width: min(100%, 470px);
+  width: min(100%, 300px);
+  width: min(100%, 300px, calc((100vh - 180px) * 0.5));
+  width: min(100%, 300px, calc((100svh - 180px) * 0.5));
   margin: 0 auto;
   aspect-ratio: 1 / 2;
 }
@@ -310,7 +312,7 @@ h2 {
 
 @media (max-width: 840px) {
   .tetris-shell {
-    padding: 14px;
+    padding: 10px;
     place-items: start center;
   }
 
@@ -323,7 +325,9 @@ h2 {
   }
 
   .board-wrap {
-    width: min(100%, 420px);
+    width: min(100%, 260px);
+    width: min(100%, 260px, calc((100vh - 220px) * 0.5));
+    width: min(100%, 260px, calc((100svh - 220px) * 0.5));
   }
 }
 
