@@ -15,7 +15,6 @@ const initialState: AuthState = {
   access: null,
   refresh: null,
 };
-
 const authSlice = createSlice({
   name: 'auth',
   initialState,
