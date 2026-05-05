@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import Index from "@/pages";
+import { createFileRoute } from '@tanstack/react-router';
+import Index from '@/pages';
 
-export const Route = createFileRoute("/auth/login")({
+export const Route = createFileRoute('/auth/login')({
   component: Index,
 });
