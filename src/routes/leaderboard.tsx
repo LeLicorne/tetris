@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import Index from '@/pages';
+import LeaderboardPage from '../pages/LeaderboardPage';
 
 export const Route = createFileRoute('/leaderboard')({
-  component: Index,
+  component: LeaderboardPage,
 });
