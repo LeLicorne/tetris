@@ -1,73 +1,97 @@
-# React + TypeScript + Vite
+# Tetris App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application Tetris en React + TypeScript + Vite.
 
-Currently, two official plugins are available:
+L'app propose un jeu jouable directement dans le navigateur, avec:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- le gameplay Tetris classique
+- un systeme de score et de progression
+- une page d'accueil, un classement et un profil utilisateur
+- une authentification Firebase
+- des sauvegardes de score locales en secours si Firebase n'est pas disponible
+- des powerups aleatoires qui peuvent detruire une ligne, une colonne ou provoquer une explosion locale
 
-## React Compiler
+## Prerequis
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 18+ recommande
+- npm
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Configuration Firebase
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Le projet utilise Firebase pour l'authentification et le stockage des scores.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Crée un fichier `.env` a la racine du projet si tu veux activer ces fonctions:
+
+```bash
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
 ```
+
+Si ces variables ne sont pas renseignees, les pages Firebase peuvent ne pas fonctionner correctement, mais le jeu reste lancable.
+
+## Lancer le projet
+
+### Mode developpement
+
+```bash
+npm run dev
+```
+
+Puis ouvre l'URL affichee par Vite, en general `http://localhost:5173`.
+
+### Build de production
+
+```bash
+npm run build
+```
+
+### Previsualiser le build
+
+```bash
+npm run preview
+```
+
+## Commandes utiles
+
+```bash
+npm run lint
+npm run typecheck
+npm run format
+npm run format:fix
+```
+
+## Fonctionnalites
+
+- Jeu Tetris complet avec score, niveau et prochaine piece
+- Sauvegarde des scores
+- Authentification login / register
+- Classement des meilleurs scores
+- Interface unifiee et responsive
+- Powerups de jeu:
+  - bombe: explosion autour de la case
+  - ligne: destruction de la ligne entiere
+  - colonne: destruction de la colonne entiere
+
+## Organisation rapide
+
+- `src/pages/` contient les ecrans principaux
+- `src/components/` contient les composants reutilisables
+- `src/services/` contient Firebase et la logique de score
+- `src/store/` contient Redux
+- `src/config/firebase.ts` contient la configuration Firebase
+
+## Notes
+
+- Le jeu fonctionne sans compte, mais la sauvegarde de score est plus complete avec Firebase.
+- Si tu changes la configuration Firebase, pense a verifier aussi les regles Firestore.

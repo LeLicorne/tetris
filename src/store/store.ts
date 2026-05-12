@@ -9,7 +9,35 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+
+// Provide a small storage wrapper that uses localStorage in the browser
+// and an in-memory fallback for environments where localStorage is not available.
+const storage = (() => {
+  if (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined') {
+    return {
+      getItem: (key: string) => Promise.resolve(window.localStorage.getItem(key)),
+      setItem: (key: string, value: string) =>
+        Promise.resolve(window.localStorage.setItem(key, value)),
+      removeItem: (key: string) => Promise.resolve(window.localStorage.removeItem(key)),
+    };
+  }
+
+  const memoryStorage: Record<string, string> = {};
+  return {
+    getItem: (key: string) =>
+      Promise.resolve(
+        Object.prototype.hasOwnProperty.call(memoryStorage, key) ? memoryStorage[key] : null
+      ),
+    setItem: (key: string, value: string) => {
+      memoryStorage[key] = value;
+      return Promise.resolve();
+    },
+    removeItem: (key: string) => {
+      delete memoryStorage[key];
+      return Promise.resolve();
+    },
+  };
+})();
 
 import rootReducer from './reducers';
 
